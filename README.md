@@ -57,11 +57,13 @@ A portable ESP32-based tool utilizing dual NRF24L01 modules to scan and interact
 ---
 
 ## 📂 Project Structure
+
+```text
 .
 ├── README.md
-└── test
-    ├── Test_antenne
-    │   └── Test_antenne.ino
-    └── Test_boutton_+_ecran
+└── test/
+    ├── Test_antenne/
+    │   └── Test_antenne.ino
+    └── Test_boutton_+_ecran/
         └── sketch_jan24a.ino
 
