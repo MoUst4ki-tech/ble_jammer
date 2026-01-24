@@ -1,4 +1,4 @@
-# 📡 BLE Jammer / Scanner
+# 📡 BLE Jammer
 
 **Author:** [moust4ki](https://github.com/moust4ki)  
 **Version:** 1.0.0
