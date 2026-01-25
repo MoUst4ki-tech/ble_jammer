@@ -12,7 +12,7 @@ const int PIN_BTN_3 = 17;
 Adafruit_SSD1306 ecranOLED(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   pinMode(PIN_BTN_1, INPUT_PULLUP);
   pinMode(PIN_BTN_2, INPUT_PULLUP);
   pinMode(PIN_BTN_3, INPUT_PULLUP);

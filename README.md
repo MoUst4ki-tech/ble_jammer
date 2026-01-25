@@ -56,14 +56,50 @@ A portable ESP32-based tool utilizing dual NRF24L01 modules to scan and interact
 
 ---
 
+**⚠️ IMPORTANT:** Use this wiring for `Test_boutton_ecran_antenne`, `Teste_dual_antenne`, and the final application.
+*Changes were made to avoid conflict between Buttons and NRF24 SPI bus.*
+
+### A. OLED Display (I2C)
+| OLED Pin | ESP32 Pin |
+|:--------:|:---------:|
+| VCC | 3.3V |
+| GND | GND |
+| SDA | GPIO 21 |
+| SCL | GPIO 22 |
+
+### B. Control Buttons (New Pins)
+| Button | ESP32 Pin | Function |
+|:------:|:---------:|:--------:|
+| **BTN UP** | **GPIO 32** | Up / Left |
+| **BTN DOWN** | **GPIO 33** | Down / Right |
+| **BTN OK** | **GPIO 27** | Enter / Validate |
+
+### C. Dual NRF24L01 Modules (SPI)
+*Note: Both modules share MOSI, MISO, and SCK. Only CSN and CE differ.*
+
+| NRF24 Pin | ESP32 Pin | Note |
+|:---:|:---:|:---|
+| **VCC** | 3.3V | **DO NOT USE 5V** (Add Capacitor!) |
+| **GND** | GND | (Add Capacitor!) |
+| **MOSI** | GPIO 23 | Shared |
+| **MISO** | GPIO 19 | Shared |
+| **SCK** | GPIO 18 | Shared |
+| | | |
+| **RADIO 1** (CE) | **GPIO 13** | |
+| **RADIO 1** (CSN)| **GPIO 14** | |
+| | | |
+| **RADIO 2** (CE) | **GPIO 25** | |
+| **RADIO 2** (CSN)| **GPIO 26** | |
 ## 📂 Project Structure
 
 ```text
 .
 ├── README.md
-└── test/
-    ├── Test_antenne/
-    │   └── Test_antenne.ino
-    └── Test_boutton_+_ecran/
-        └── sketch_jan24a.ino
-
+└── test
+    ├── Test_antenne
+    │   ├── Test_antenne.ino
+    │   └── Teste_dual_antenne.ino
+    ├── Test_boutton_ecran
+    │   └── Test_boutton_ecran.ino
+    └── Test_boutton_ecran_antenne
+        └── Test_boutton_ecran_antenne.ino
