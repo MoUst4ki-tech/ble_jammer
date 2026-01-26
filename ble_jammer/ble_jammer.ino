@@ -69,7 +69,7 @@ const unsigned char* logo_moust4ki_allArray[1] = {
 	logo_moust4ki
 };
 
-enum PageActuelle { SPLASH, MENU, OUTIL_1, OUTIL_2 };
+enum PageActuelle { SPLASH, MENU, OUTIL_1, OUTIL_2, OUTIL_3 };
 PageActuelle etat = SPLASH; 
 int selection = 0;
 #include <Wire.h>
@@ -100,8 +100,69 @@ void setup() {
   delay(3000);
   etat = MENU;
   ecranOLED.clearDisplay();
-  Serial.println(F("Firmware pret !"));
 }
 
 void loop() {
+  if (digitalRead(PIN_BTN_1) == LOW) {
+		if(etat == MENU) {
+    	selection--;
+    	if (selection < 0) selection = 2;
+		}
+		else{etat = MENU;};
+    delay(200); 
+  }
+  if (digitalRead(PIN_BTN_2) == LOW) {
+    selection++;
+    if (selection > 2) selection = 0;
+    delay(200);
+  }
+  if (digitalRead(PIN_BTN_3) == LOW) {
+    if (selection == 0) etat = OUTIL_1;
+    if (selection == 1) etat = OUTIL_2;
+		if (selection == 2) etat = OUTIL_3;
+    delay(200);
+  }
+  ecranOLED.clearDisplay();
+  switch (etat) {
+    case MENU:
+      afficherMenu(selection);
+      break;ssss
+    case OUTIL_1:
+      ecranOLED.setCursor(25,0);
+      ecranOLED.println("-- Scanner --");
+			ecranOLED.drawLine(0, 10, 128, 10, SSD1306_WHITE);
+      break;
+		case OUTIL_2:
+			ecranOLED.setCursor(30,0);
+			ecranOLED.println("-- Jammer --");
+			ecranOLED.drawLine(0, 10, 128, 10, SSD1306_WHITE);
+			break;
+		case OUTIL_3:
+			ecranOLED.setCursor(10,0);
+			ecranOLED.setTextColor(SSD1306_WHITE);
+			ecranOLED.println("-- Informations --");
+			ecranOLED.drawLine(0, 10, 128, 10, SSD1306_WHITE);
+			break;
+  }
+  ecranOLED.display();
+}
+
+void afficherMenu(int sel) {
+  ecranOLED.setTextSize(1);
+  ecranOLED.setTextColor(SSD1306_WHITE);
+  ecranOLED.setCursor(15, 0);
+  ecranOLED.println(F("-- MENU BRNS --"));
+  ecranOLED.drawLine(0, 10, 128, 10, SSD1306_WHITE);
+  const char* options[] = {"Scanner", "Jammer", "Informations"};
+  for (int i = 0; i < 3; i++) {
+    int y = 18 + (i * 12);
+    if (i == sel) {
+      ecranOLED.fillRect(0, y - 2, 128, 12, SSD1306_WHITE);
+      ecranOLED.setTextColor(SSD1306_BLACK);
+    } else {
+      ecranOLED.setTextColor(SSD1306_WHITE);
+    }
+    ecranOLED.setCursor(5, y);
+    ecranOLED.println(options[i]);
+  }
 }
